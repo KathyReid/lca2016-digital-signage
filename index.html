@@ -1,51 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
+
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="js/setup.js"></script>
+  <script src="js/lca2016-digsignage.js"></script>
 
-<script>
-
-$(document).ready(function(){
-
-  $.getJSON("schedule.json")
-
-
-    .done(function(scheduleData) {
-
-      var items = [];
-      $.each( scheduleData, function( key, val ) {
-
-
-        items.push( "<li id='" + key + "'>" + val.Title + ': ' + val.Description + "</li>" );
-      });
-
-      $( "<ul/>", {
-        "class": "my-new-list",
-        html: items.join( "" )
-      }).appendTo( "#schedule" );
-    })
-
-    .fail(function( jqxhr, textStatus, error ) {
-      var err = textStatus + ", " + error;
-      console.log( "Request Failed: " + err );
-
-  });
-});
-
-</script>
+  <link href="css/lca2016-digsignage.css" rel="stylesheet" />
 
 </head>
 
   <body>
 
-<h1>testing on jQuery</h1>
+    <header>
+        <h1 id="title">Schedule for</h1>
+    </header>
+
 
 
     <div id="schedule">
 
     </div>
+
+    <footer>
+      <div id="logo">
+        &nbsp;
+      </div>
+    </footer>
 
 
   </body>
