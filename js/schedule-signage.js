@@ -8,6 +8,13 @@ var Wednesday = moment("2016-02-03");
 var Thursday  = moment("2016-02-04");
 var Friday    = moment("2016-02-05");
 
+
+var primaryVenue = 'Costa Hall';
+
+/* Set how far ahead the 'current' listing looks */
+var listingTimeAhead = 1; // value is in hours
+var listingTimeBehind = 30; // value is in minutes
+
 /* Update this URL to be the location the JSON data is sourced from */
 var jsonURL = 'schedule.json';
 
@@ -34,13 +41,16 @@ switch (URLVars['displayType']) {
     break;
 
   case "current":
-    displayCurrent();
+    displayCurrent(scheduleData, listingTimeAhead, listingTimeBehind);
     break;
 
   default:
     /* if one of the above types is not selected, default to room */
     URLVars['displayType'] = 'room';
-    displayRoom();
+    if(!URLVars['room']){
+      URLVars['room'] = primaryVenue;
+    }
+    displayRoom(URLVars['room'], scheduleData, URLVars['day']);
 }
 
 
@@ -174,14 +184,13 @@ function displayRoom(room, scheduleData, scheduleDay) {
     listHTML += "<td class=\"displayTitle\">"  + value['Title']+ "</td>";
 
     // Presenter
+    // If Presenter is undefined, replace with a hyphen
+    if (!value['Presenters']){
+      value['Presenters'] = '-'
+    }
     listHTML += "<td class=\"displayPresenter\">"  + value['Presenters']+ "</td>";
 
-
-
-
     listHTML += "</tr>";
-
-
   })
 
   $(document).ready(function(){
@@ -202,15 +211,93 @@ function sortRoomData(data1, data2){
 
 }
 
-
-function displayDay() {
-
-}
-
-function displayCurrent() {
+function displayCurrent(scheduleData, listingTimeAhead, listingTimeBehind) {
 
   $(document).ready(function(){
-    $( "#title" ).append( " day " );
+    $( "#title" ).append( " upcoming events " );
+  })
+
+  var durationAhead = new moment.duration(listingTimeAhead, 'hours');
+  var durationBehind = new moment.duration(listingTimeBehind, 'minutes');
+
+  // using this for testing
+  // for production you should use the current time
+  var windowTimeEnd  = new moment('2016-02-02 15:15:00').add(durationAhead);
+  var windowTimeStart = new moment('2016-02-02 15:15:00').add(-durationBehind);
+
+  //var windowTimeEnd  = moment().add(durationAhead);
+  //var windowTimeStart = moment().subtract(durationBehind);
+
+  var roomData =  new Array();
+  var i = 0;
+
+  console.log ('before scheduleData');
+
+  $.each(scheduleData, function( key, value ) {
+    //compare dates and times to see whether
+    var compareTime = new moment(value['Start']);
+    console.log(compareTime);
+    console.log(windowTimeStart);
+    console.log(windowTimeEnd);
+    console.log(compareTime.isBefore(windowTimeEnd));
+    console.log(compareTime.isAfter(windowTimeStart));
+
+
+
+    if ((compareTime.isBefore(windowTimeEnd)) &&
+        (compareTime.isAfter(windowTimeStart))){
+      // then we want to show the events
+      console.log('entered loop');
+
+      roomData[i] = value;
+      i ++;
+
+   }
+
+  });
+
+  roomData = roomData.sort(sortRoomData);
+
+  // now we loop through data and we pull out events
+  var listHTML = '';
+  listHTML += "<table " + "id=\"scheduleTable\"" + ">";
+  listHTML += "<tr>";
+  listHTML += "<th>Day and time</th>";
+  listHTML += "<th>Title</th>";
+  listHTML += "<th>Presenter</th>";
+  listHTML += "<th>Venue</th>";
+  listHTML += "</tr>";
+
+  $.each(roomData, function( key, value ) {
+
+    // if this is the first entry for the day, do a table header
+
+    listHTML += "<tr>";
+
+    // Date and day
+    var showDate = new moment(value['Start']);
+    var showDuration = new moment.duration(value['Duration']);
+
+    listHTML += "<td class=\"displayDate\">"  + showDate.format('ddd Do MMM HH:mm') + "<span class=\"displayDuration\"> "  + "(" + showDuration.asMinutes() + " mins)" + "</span>" + "</td>";
+
+    // Title
+    listHTML += "<td class=\"displayTitle\">"  + value['Title']+ "</td>";
+
+    // Presenter
+    // If Presenter is undefined, replace with a hyphen
+    if (!value['Presenters']){
+      value['Presenters'] = '-'
+    }
+    listHTML += "<td class=\"displayPresenter\">"  + value['Presenters']+ "</td>";
+
+    // Venue
+    listHTML += "<td class=\"displayVenue\">"  + value['Room Name']+ "</td>";
+
+    listHTML += "</tr>";
+  })
+
+  $(document).ready(function(){
+    $("#schedule").append(listHTML);
   })
 
 }

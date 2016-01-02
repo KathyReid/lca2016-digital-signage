@@ -129,8 +129,7 @@ header {
 footer {
   height: 200px;
   width: 99%;
-  position: absolute;
-  bottom: 15%;
+  margin-top: 1%;
 }
 
 #logo {
@@ -179,8 +178,8 @@ h1 {
 }
 
 #scheduleTable td, #scheduleTable th {
-  font-size: 220%;
-  padding: 1%;
+  font-size: 210%;
+  padding: 0.7%;
   border: 1px solid #00002d;
   text-align: left;
 }
@@ -190,4 +189,13 @@ h1 {
   font-size: 80%;
   color: #222;
   display: block;
+}
+
+#ByRoom, #Current {
+  margin: 3%
+}
+
+#ByRoom li, #Current li {
+  list-style-type: square;
+  line-height: 1.4;
 }
