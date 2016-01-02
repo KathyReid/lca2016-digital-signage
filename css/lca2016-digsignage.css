@@ -149,3 +149,31 @@ h1 {
   font-weight: 900;
 
 }
+
+
+#scheduleTable {
+  border: 1px solid #00002d;
+  border-collapse: collapse;
+
+  background-color: white;
+
+  margin: 2%;
+}
+
+#scheduleTable th {
+  font-weight: 700;
+}
+
+#scheduleTable td, #scheduleTable th {
+  font-size: 200%;
+  padding: 1%;
+  border: 1px solid #00002d;
+  text-align: left;
+}
+
+
+.displayDuration {
+  font-size: 80%;
+  color: #222;
+  display: block;
+}
