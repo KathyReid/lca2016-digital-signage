@@ -1,13 +1,7 @@
-/*
-
-
-
-
-*/
-
 /* Initialise all the variables! */
 
 /* Set the dates for comparison */
+var Sunday    = moment("2016-01-31");
 var Monday    = moment("2016-02-01");
 var Tuesday   = moment("2016-02-02");
 var Wednesday = moment("2016-02-03");
@@ -23,9 +17,6 @@ var scheduleData = loadScheduleData(jsonURL);
 
 /* Initial setup actions based on the GET parameters */
 var URLVars = getUrlVars();
-console.log(URLVars['displayType']);
-console.log(URLVars['room']);
-console.log(URLVars['day']);
 
 /*
 
@@ -92,6 +83,9 @@ function displayRoom(room, scheduleData, scheduleDay) {
 
   $(document).ready(function(){
     $( "#title" ).append( " room " + decodeURI(room) );
+    if (scheduleDay){
+      $( "#title" ).append(" for " + scheduleDay);
+    }
   })
 
   var roomData =  new Array();
@@ -104,11 +98,53 @@ function displayRoom(room, scheduleData, scheduleDay) {
       // if scheduleDay is set, add the room if it matches the day
       // otherwise we add the room
 
+      if (!scheduleDay){
+        // scheduleDay is not set
+        // add to room
+        roomData[i] = value;
+        i ++;
+      } else
+      {
 
-      
-      // add to room
-      roomData[i] = value;
-      i ++;
+        var compareDay = moment(value['Start']).date();
+        console.log(compareDay);
+
+        switch (scheduleDay){
+
+          case "Sunday":
+            var scheduleDayCompare = moment(Sunday).date();
+            break;
+
+          case "Monday":
+            var scheduleDayCompare = moment(Monday).date();
+            break;
+
+          case "Tuesday":
+            var scheduleDayCompare = moment(Tuesday).date();
+            break;
+
+          case "Wednesday":
+            var scheduleDayCompare = moment(Wednesday).date();
+            break;
+
+          case "Thursday":
+            var scheduleDayCompare = moment(Thursday).date();
+            break;
+
+          case "Friday":
+            var scheduleDayCompare = moment(Friday).date();
+            break;
+
+          }
+
+          // and now we add the room to the roomData if the day matches
+          if (compareDay == scheduleDayCompare){
+            roomData[i] = value;
+            i ++;
+          }
+
+
+        }
     }
   });
 
