@@ -154,11 +154,15 @@ footer {
   margin: 2%;
 }
 
+#heading {
+  display: inline;
+}
+
 h1 {
   font-size: 300%;
   color:  #00002d;
   font-weight: 900;
-
+  float: left;
 }
 
 
@@ -198,4 +202,64 @@ h1 {
 #ByRoom li, #Current li {
   list-style-type: square;
   line-height: 1.4;
+}
+
+/* Clock CSS */
+
+#clock {
+  float: right;
+  font-size:350%;
+  font-weight: 900;
+}
+.container {
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.clock {
+  margin:0 auto;
+  padding:2px;
+  color: #00002d;
+}
+
+#Date {
+  text-align:center;
+  text-shadow:0 0 2px #00002d;
+  display: none; /* people will know what day it is */
+}
+
+ul {
+  width:400px;
+  margin:0 auto;
+  padding:0px;
+  list-style:none;
+  text-align:center;
+}
+
+ul li {
+  display:inline;
+  text-align:center;
+  text-shadow:0 0 5px #fff;
+}
+
+#point {
+  position:relative;
+  -moz-animation:mymove 1s ease infinite;
+  -webkit-animation:mymove 1s ease infinite;
+  padding:0;
+}
+
+@-webkit-keyframes mymove
+{
+0% {opacity:1.0; text-shadow:0 0 5px #fff;}
+50% {opacity:0; text-shadow:none; }
+100% {opacity:1.0; text-shadow:0 0 5px #fff; }
+}
+
+
+@-moz-keyframes mymove
+{
+0% {opacity:1.0; text-shadow:0 0 5px #fff;}
+50% {opacity:0; text-shadow:none; }
+100% {opacity:1.0; text-shadow:0 0 5px #fff; }
 }
