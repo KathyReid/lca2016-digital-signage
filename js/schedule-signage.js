@@ -236,18 +236,10 @@ function displayCurrent(scheduleData, listingTimeAhead, listingTimeBehind) {
   $.each(scheduleData, function( key, value ) {
     //compare dates and times to see whether
     var compareTime = new moment(value['Start']);
-    console.log(compareTime);
-    console.log(windowTimeStart);
-    console.log(windowTimeEnd);
-    console.log(compareTime.isBefore(windowTimeEnd));
-    console.log(compareTime.isAfter(windowTimeStart));
-
-
 
     if ((compareTime.isBefore(windowTimeEnd)) &&
         (compareTime.isAfter(windowTimeStart))){
       // then we want to show the events
-      console.log('entered loop');
 
       roomData[i] = value;
       i ++;
