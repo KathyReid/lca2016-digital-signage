@@ -22,5 +22,5 @@ The variables you will have to set up to re-use this are;
 
 * Ideally the dependencies should be packaged using Bower, Grunt etc.
 * The setup and the actual processing of the JSON Schedule feed should be separated so that the conference Organising Team only has to touch one file - the setup file
-* The HTML itself isn't overly responsive and this coudl be improved
+* The HTML itself isn't overly responsive and this could be improved
 * Same for WCAG and HTML and W3C CSS Jigsaw compliance
