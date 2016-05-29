@@ -2,7 +2,7 @@
 
 ## Overview
 
-The ZooKeepr conference management system (http://zookeepr.org/) provides a JSON feed of the conference Schedule. This is great as a web patch, and passable on a mobile device. However, the conference often wants to display the Schedule in various ways, such as in between talks and on digital signage.
+The ZooKeepr conference management system (http://zookeepr.org/) provides a JSON feed of the conference Schedule. This is great as a web page, and passable on a mobile device. However, the conference often wants to display the Schedule in various ways, such as in between talks and on digital signage.
 
 This package is a minimum viable product (MVP) to solve this problem.
 
